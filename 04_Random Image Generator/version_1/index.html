@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./style.css">
+    <title>Random Image Generator</title>
+</head>
+<body>
+	<header>
+        <h1>Random Image Generator </h1>
+	</header>
+	<main>
+		<div class="container">
+            <p>Choose the size and style of Image</p>
+            <input type="number" id="widthInput" placeholder="width (100 ~ 1000px)" min="100" max="1000">
+            <input type="number" id="heightInput" placeholder="height (100 ~ 1000px)" min="100" max="1000">
+			<label>
+				Grayscale <input type="checkbox" id="grayscaleInput">
+				
+			</label>
+			<label>
+				Blur <input type="number" id="blurInput" placeholder="0~10" min="0" max="10">
+			</label>
+            <button id="generateBtn">Create Image!</button>
+            <button id="saveBtn">Save selected Image</button>
+            <button id="resetBtn">Reset</button>
+		</div>
+		<div id="gridContainer"></div>
+	</main>
+	<script src="./script.js"></script>
+</body>
+</html>

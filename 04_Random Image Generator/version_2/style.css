@@ -1,0 +1,251 @@
+/* 구글 폰트 링크 추가 */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Raleway:wght@300;400;700&display=swap');
+
+/* 기본 스타일 */
+body {
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 별빛 효과 */
+@keyframes twinkle {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.star::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, #fff, transparent);
+    transform: translate(-50%, -50%) rotate(45deg);
+    animation: shooting-star 5s linear infinite;
+}
+
+@keyframes shooting-star {
+    0% { transform: translate(-50%, -50%) rotate(45deg) translateX(-100px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translate(-50%, -50%) rotate(45deg) translateX(100px); opacity: 0; }
+}
+
+/* 오로라 효과 */
+.aurora {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+@keyframes aurora-animation {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.aurora::before,
+.aurora::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    border-radius: 40%;
+    background-image: linear-gradient(90deg, #3ad59f, #4c9ceb, #f763b0);
+    animation: aurora-animation 20s linear infinite;
+}
+
+.aurora::after {
+    width: 220%;
+    height: 220%;
+    animation-duration: 30s;
+    animation-direction: reverse;
+}
+
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5em;
+    color: #4df0ff;
+    text-shadow: 0 0 10px rgba(77, 240, 255, 0.7);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.container label,
+.container input[type="number"],
+.container input[type="checkbox"],
+.container button {
+    margin: 5px 10px;
+    width: 100%;
+    max-width: 300px;
+}
+
+input[type="number"], input[type="checkbox"], button {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+input[type="range"] {
+    margin: 5px 10px 5px 70px;
+}
+
+input[type="number"]:focus, button:focus {
+    box-shadow: 0 0 15px rgba(77, 240, 255, 0.5);
+}
+
+/* placeholder 색상 변경 */
+input::placeholder {
+    color: #4df0ff; 
+    opacity: 20%; /* 투명도 설정, 기본값은 브라우저에 따라 다를 수 있음 */
+}
+
+button {
+    background-color: #4df0ff;
+    color: #24243e;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    background-color: #24243e;
+    color: #4df0ff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(77, 240, 255, 0.4);
+}
+
+#gridContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.img-container {
+    position: relative;
+    width: calc(33.333% - 20px);
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.img-container.selected {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(77, 240, 255, 0.7);
+    border: 3px solid #4df0ff;
+}
+
+.random-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.img-container:hover .random-image {
+    transform: scale(1.1);
+}
+
+label {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    color: #fff;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 300px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #4df0ff;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+}
+
+input[type="checkbox"]:checked::before {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #4df0ff;
+    font-size: 16px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    .img-container {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .img-container {
+        width: 100%;
+    }
+}
