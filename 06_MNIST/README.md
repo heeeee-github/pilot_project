@@ -339,9 +339,10 @@ if __name__ == '__main__':
     
 
 생성한 requirements를 활용하여 필요한 모든 패키지 설치하기 위해서는 아래의 명령어 입력
-    ```
-    pip install -r requirements.txt
-    ```
+
+   ```
+   pip install -r requirements.txt
+   ```
     
 
 ## 07. 정리
