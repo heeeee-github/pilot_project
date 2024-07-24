@@ -53,6 +53,7 @@
  * (가상환경 비활성화) 실행한 가상환경을 끔
  * 
     ```
+    deactivate
     ```
 
 ### 01.04. 필요한 라이브러리 설치
@@ -217,68 +218,67 @@ if __name__ == '__main__':
 
 ### 04.02. 템플릿코드 입력
 
-    ```html
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>MNIST 0/1 Classifier</title>
-        <style>
-            canvas {
-                border: 1px solid black;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>MNIST 0/1 Classifier</h1>
-        <input type="number" id="index-input" min="0" placeholder="Enter index">
-        <button onclick="predict()">Predict</button>
-        <br><br>
-        <canvas id="image-canvas" width="280" height="280"></canvas>
-        <p>Predicted digit: <span id="predicted-digit"></span></p>
-        <p>Confidence: <span id="confidence"></span></p>
-        <p>Actual digit: <span id="actual-digit"></span></p>
-        
-        <script>
-            function predict() {
-                const index = document.getElementById('index-input').value;
-                fetch('/predict', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ index: index }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('predicted-digit').textContent = data.predicted_digit;
-                    document.getElementById('confidence').textContent = (data.confidence * 100).toFixed(2) + '%';
-                    document.getElementById('actual-digit').textContent = data.actual_digit;
-                    drawImage(data.image_data);
-                });
-            }
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MNIST 0/1 Classifier</title>
+  <style>
+      canvas {
+          border: 1px solid black;
+      }
+  </style>
+</head>
+<body>
+  <h1>MNIST 0/1 Classifier</h1>
+  <input type="number" id="index-input" min="0" placeholder="Enter index">
+  <button onclick="predict()">Predict</button>
+  <br><br>
+  <canvas id="image-canvas" width="280" height="280"></canvas>
+  <p>Predicted digit: <span id="predicted-digit"></span></p>
+  <p>Confidence: <span id="confidence"></span></p>
+  <p>Actual digit: <span id="actual-digit"></span></p>
+  
+  <script>
+      function predict() {
+          const index = document.getElementById('index-input').value;
+          fetch('/predict', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ index: index }),
+          })
+          .then(response => response.json())
+          .then(data => {
+              document.getElementById('predicted-digit').textContent = data.predicted_digit;
+              document.getElementById('confidence').textContent = (data.confidence * 100).toFixed(2) + '%';
+              document.getElementById('actual-digit').textContent = data.actual_digit;
+              drawImage(data.image_data);
+          });
+      }
 
-            function drawImage(imageData) {
-                const canvas = document.getElementById('image-canvas');
-                const ctx = canvas.getContext('2d');
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+      function drawImage(imageData) {
+          const canvas = document.getElementById('image-canvas');
+          const ctx = canvas.getContext('2d');
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                const scale = canvas.width / 28;
-                for (let y = 0; y < 28; y++) {
-                    for (let x = 0; x < 28; x++) {
-                        const value = imageData[y][x] * 255;
-                        ctx.fillStyle = `rgb(${value},${value},${value})`;
-                        ctx.fillRect(x * scale, y * scale, scale, scale);
-                    }
-                }
-            }
-        </script>
-    </body>
-    </html>
+          const scale = canvas.width / 28;
+          for (let y = 0; y < 28; y++) {
+              for (let x = 0; x < 28; x++) {
+                  const value = imageData[y][x] * 255;
+                  ctx.fillStyle = `rgb(${value},${value},${value})`;
+                  ctx.fillRect(x * scale, y * scale, scale, scale);
+              }
+          }
+      }
+  </script>
+</body>
+</html>
 
-    ```
-
+```
 
 
 ## 05. 웹 애플리케이션 실행
@@ -299,7 +299,52 @@ if __name__ == '__main__':
 
 
 
-## 06. 정리
+## 06. 추가 파일 생성
+
+### 06.01. .gitignore 파일 생성
+
+생성한 파일을 GitHub에 push하려고 하는데, 올리면 안되는 파일을 설정할 때
+위의 내용 중에는 가상환경(`mnist_env`)을 올리지 않음
+
+ * 생성 순서
+   1. `.gitignore` 파일 생성
+   2. GitHub에 올리지 않을 파일 목록 작성
+      * 작성 내용 : [ignore.io](https://www.toptal.com/developers/gitignore)
+   3. 파일 저장
+      * (참고) 파일은 제일 첫번째에 위치해야 함  
+
+### 06.02. requirements.txt 파일 생성
+프로젝트에서 사용되는 모든 패키지와 버전을 나열하는 파일
+
+* 방법 1
+   pip freeze 명령어 사용
+  
+    ```
+    pip freeze > requirements.txt
+    ```
+
+* 방법 2
+   1. `requirements.txt` 파일 생성
+   2. pip list를 사용하여 명령어를 확인
+       ```
+       pip list
+       ```
+   3. 명령어 확인 후 해당 리스트를 복사하여 파일에 붙여넣기 
+
+* 방법 3
+   pip list로 목록을 확인하고, pip freeze 명령어 사용
+    ```
+    pip list --format=freeze > requirements.txt
+    ```
+    
+
+생성한 requirements를 활용하여 필요한 모든 패키지 설치하기 위해서는 아래의 명령어 입력
+    ```
+    pip install -r requirements.txt
+    ```
+    
+
+## 07. 정리
 
 이 프로젝트를 통해 머신러닝 모델 훈련, 데이터 전처리, 웹 애플리케이션 개발의 기본 학습
 
