@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <title>🥩 냉장고를 부탁해 🐟 </title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1> 🥩 냉장고를 부탁해 🐟 </h1>
+        
+        <div class="fridge-container">
+            <div class="fridge-door">
+                　
+                <div class="fridge-handle"></div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-button" onclick="openTab(event, 'ingredients')">보유 중</button>
+                <button class="tab-button" onclick="openTab(event, 'recipe')">레시피</button>
+            </div>
+    
+            <div id="ingredients" class="tab-content">
+                <!-- <h2>보유 중</h2> -->
+    
+                <div class="ingredient-category">
+                    <h3>🧂부재료</h3>
+                    <input type="text" id="basic-ingredient-input" placeholder="재료 입력">
+                    <button onclick="addIngredient('basic')">추가</button>
+                    <div id="basic-ingredients" class="ingredient-list"></div>
+                </div>
+    
+                <div class="ingredient-category">
+                    <h3>🥬야채 및 과일🍓</h3>
+                    <input type="text" id="vegi-ingredient-input" placeholder="야채 입력">
+                    <button onclick="addIngredient('vegi')">추가</button>
+                    <div id="vegi-ingredients" class="ingredient-list"></div>
+                </div>
+    
+                <div class="ingredient-category">
+                    <h3>🥛냉장</h3>
+                    <input type="text" id="fridge-ingredient-input" placeholder="냉장 재료 입력">
+                    <button onclick="addIngredient('fridge')">추가</button>
+                    <div id="fridge-ingredients" class="ingredient-list"></div>
+                </div>
+    
+                <div class="ingredient-category">
+                    <h3>🧊냉동</h3>
+                    <input type="text" id="freezer-ingredient-input" placeholder="냉동 재료 입력">
+                    <button onclick="addIngredient('freezer')">추가</button>
+                    <div id="freezer-ingredients" class="ingredient-list"></div>
+                </div>
+            </div>
+    
+            <div id="recipe" class="tab-content">
+                <!-- <h2>레시피</h2> -->
+    
+                <div class="ingredient-category">
+                    <h3>주재료</h3>
+                    <input type="text" id="main-ingredient-input" placeholder="주재료 입력">
+                    <button onclick="addIngredient('main')">추가</button>
+                    <div id="main-ingredients" class="ingredient-list"></div>
+                    <div id="main-ingredient-status" class="ingredient-status"></div>
+                </div>
+    
+                <button id="generate-recipe" onclick="generateRecipe()">레시피 생성</button>
+                <div id="recipe-result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
